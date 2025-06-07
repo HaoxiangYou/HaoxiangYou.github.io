@@ -2,7 +2,7 @@
 layout: page
 title: other projects
 permalink: /projects/
-description: Some of my pass projects
+description: Some of my past projects
 nav: true
 nav_order: 2
 display_categories: [work, fun]
