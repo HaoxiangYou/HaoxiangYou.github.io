@@ -19,8 +19,12 @@ jobs:
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.0.2'
-        bundler-cache: true
+        ruby-version: '3.1'
+        bundler-cache: false
+    - name: Remove lock/cache
+      run: |
+        rm -f Gemfile.lock
+        rm -rf .bundle vendor
     - name: Install deps
       run: |
         npm install -g mermaid.cli
