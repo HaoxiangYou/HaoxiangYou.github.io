@@ -20,7 +20,11 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.1'
-        bundler-cache: false
+        bundler-cache: true
+    - name: Install build dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential
     - name: Remove lock/cache
       run: |
         rm -f Gemfile.lock
@@ -31,7 +35,8 @@ jobs:
     - name: Install Ruby dependencies
       run: |
         gem install bundler -v 2.4.22
-        bundle install
+        gem install json -v 2.6.3
+        bundle install --retry 3
     - name: Setup deploy options
       id: setup
       run: |
