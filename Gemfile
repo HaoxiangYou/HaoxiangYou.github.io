@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+gem 'json', '~> 2.6'
+gem 'sass-embedded', '~> 1.69.0'
 group :jekyll_plugins do
     gem 'jekyll'
     gem 'jekyll-archives'
