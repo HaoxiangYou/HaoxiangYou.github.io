@@ -1,9 +1,10 @@
 ---
 layout: page
-title: Mechatronics
-description: Some DIY Mechatronics
+title: Design and Manufacturing of Electric Car with Remote Control
+description: Complete design and manufacturing of an electric car including mechanical design, circuit design, electrical systems, and remote control implementation
 img: assets/img/master_yiyi/hardware.JPG
 importance: 3
+selected: true
 category: fun
 ---
 

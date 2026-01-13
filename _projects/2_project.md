@@ -1,13 +1,14 @@
 ---
 layout: page
-title: Cassie
-description: Assisted in the Cassie project with a focus on system identification, state estimation, and control development.
+title: Sim-to-real control of bipedal Cassie robot
+description: Developed sim-to-real control strategies for the Cassie bipedal robot, focusing on trajectory optimization, feedback control, system identification and state estimation.
 img: assets/img/cassie/cassie.gif
-importance: 2
+importance: 1
 category: work
+selected: true
 ---
 
-In this project, I collaborated with [William Yang](https://yangwill.github.io/) on the Cassie bipedal robot, focusing on system identification, state estimation, and model-based control. We also conducted experiments with reinforcement learning to evaluate its performance alongside traditional control strategies.
+In this project, I collaborated with [William Yang](https://yangwill.github.io/) on developing sim-to-real control strategies for the Cassie bipedal robot. The work focused on bridging the simulation-to-reality gap through system identification, state estimation, and model-based control. We developed methods to transfer results from simulation to the physical robot, addressing challenges such as model mismatch, sensor noise, and actuator dynamics.
 
 <div class="row justify-content-sm-center">
   <div class="col-sm-10 mt-3 mt-md-0">

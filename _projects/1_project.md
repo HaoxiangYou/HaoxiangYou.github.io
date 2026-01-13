@@ -1,10 +1,11 @@
 ---
 layout: page
-title: End-to-end implementation for UAV system
-description: Comprehensive development and integration of planning, control, and VIO for UAVs
+title: Motion Planning, Path Search, and Visual-Inertial Odometry for UAVs
+description: End-to-end implementation of motion planning, path search algorithms, and VIO for autonomous UAV navigation
 img: assets/img/uav/hardware_maze.gif
-importance: 1
+importance: 2
 category: work
+selected: true
 ---
 
 In this project, I develop a UAV system from scratch. The system includes a geometry-inspired PID controller, a Dijkstra path search algorithm, minimal snap trajectory optimization, and a visual-inertial odometry module for state estimation.

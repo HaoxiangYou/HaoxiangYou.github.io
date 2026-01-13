@@ -24,7 +24,25 @@
           {{reference}}
         {%- else %}
           <!-- Title -->
-          <div class="title">{{entry.title}}</div>
+          <div class="title">
+            {%- if entry.website -%}
+              <a href="{{ entry.website }}" target="_blank" rel="noopener noreferrer">{{entry.title}}</a>
+            {%- elsif entry.html -%}
+              <a href="{{ entry.html }}" target="_blank" rel="noopener noreferrer">{{entry.title}}</a>
+            {%- elsif entry.arxiv -%}
+              <a href="http://arxiv.org/abs/{{ entry.arxiv }}" target="_blank" rel="noopener noreferrer">{{entry.title}}</a>
+            {%- elsif entry.pdf -%}
+              {% if entry.pdf contains '://' -%}
+                <a href="{{ entry.pdf }}" target="_blank" rel="noopener noreferrer">{{entry.title}}</a>
+              {%- else -%}
+                <a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}" target="_blank" rel="noopener noreferrer">{{entry.title}}</a>
+              {%- endif %}
+            {%- elsif entry.url -%}
+              <a href="{{ entry.url }}" target="_blank" rel="noopener noreferrer">{{entry.title}}</a>
+            {%- else -%}
+              {{entry.title}}
+            {%- endif %}
+          </div>
           <!-- Author -->
           <div class="author">
           {% assign author_array_size = entry.author_array | size %}
