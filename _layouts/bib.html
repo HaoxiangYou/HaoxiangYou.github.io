@@ -53,6 +53,20 @@
             {% assign author_array_limit = author_array_size %}
           {% endif %}
 
+          {%- comment -%} Ensure self author is always shown by extending the limit if needed {%- endcomment -%}
+          {%- assign self_author_index = -1 -%}
+          {%- for author in entry.author_array -%}
+            {%- if author.last == site.scholar.last_name -%}
+              {%- if site.scholar.first_name contains author.first -%}
+                {%- assign self_author_index = forloop.index -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if self_author_index > author_array_limit -%}
+            {%- assign author_array_limit = self_author_index -%}
+          {%- endif -%}
+
           {%- for author in entry.author_array limit: author_array_limit -%}
             {%- assign author_is_self = false -%}
             {%- if author.last == site.scholar.last_name %}
