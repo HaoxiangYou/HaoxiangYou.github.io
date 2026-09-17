@@ -114,6 +114,10 @@ blockquote {
       p { display: block; }
     }
   }
+  // keep the about text in the left column, even below the profile photo
+  .post article > .clearfix {
+    width: calc(75% - 1rem);
+  }
 }
 
 .post-description {
