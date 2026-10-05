@@ -1,0 +1,296 @@
+/*******************************************************************************
+ * Modern overrides — clean academic look inspired by tairanhe.com and
+ * haoruxue.github.io: Lato, regular-weight headings, blue links, text-style
+ * paper links, thin section dividers.
+ * Remove the "modern" import in main.scss to revert.
+ ******************************************************************************/
+
+$modern-accent:       #2a6fc9;
+$modern-accent-hover: #e3961a;
+$modern-text:         #1a1a1a;
+$modern-text-light:   #636363;
+
+:root {
+  --global-text-color: #{$modern-text};
+  --global-text-color-light: #{$modern-text-light};
+  --global-theme-color: #{$modern-accent};
+  --global-hover-color: #{$modern-accent-hover};
+  --global-divider-color: #e6e6e6;
+  --modern-soft-bg: #f6f8fb;
+  --global-footer-bg-color: #ffffff;
+  --global-footer-text-color: #{$modern-text-light};
+  --global-footer-link-color: #{$modern-text-light};
+}
+
+html[data-theme='dark'] {
+  --global-bg-color: #16181c;
+  --global-text-color: #e6e6e6;
+  --global-text-color-light: #9aa0a6;
+  --global-theme-color: #7aa7ec;
+  --global-hover-color: #f0b450;
+  --global-divider-color: #2c2f35;
+  --global-card-bg-color: #1e2126;
+  --modern-soft-bg: #1e2126;
+  --global-footer-bg-color: #16181c;
+  --global-footer-text-color: #9aa0a6;
+  --global-footer-link-color: #9aa0a6;
+}
+
+// Typography
+body {
+  font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 16.5px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--global-text-color);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6,
+.navbar, .btn, .badge, .abbr, abbr {
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  color: var(--global-text-color);
+}
+
+a {
+  color: var(--global-theme-color);
+  transition: color 0.15s ease;
+  &:hover {
+    color: var(--global-hover-color);
+    text-decoration: none;
+  }
+}
+
+// Navbar
+.navbar {
+  box-shadow: none;
+  border-bottom: 1px solid var(--global-divider-color);
+  .navbar-nav .nav-item .nav-link {
+    font-weight: 400;
+    font-size: 0.95rem;
+  }
+  .navbar-nav .nav-item.active > .nav-link {
+    font-weight: 700;
+    color: var(--global-text-color);
+  }
+  .navbar-brand .font-weight-bold {
+    font-weight: 400 !important;
+  }
+}
+
+// Page header / name: regular weight, like both reference sites
+.post-header {
+  .post-title {
+    font-size: 2.6rem;
+    font-weight: 400;
+    .font-weight-bold {
+      font-weight: 400 !important;
+    }
+  }
+  .desc {
+    color: var(--global-text-color-light);
+  }
+}
+
+// Chinese name next to the title, separated by a thin bar
+.post-header .post-title .name-zh {
+  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  color: var(--global-text-color);
+  letter-spacing: 0.02em;
+  &::before {
+    content: "|";
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    color: var(--global-text-color-light);
+    margin: 0 0.35em 0 0.2em;
+  }
+}
+
+// Profile photo (larger than the al-folio default of 25%)
+@media (min-width: 576px) {
+  .profile {
+    width: 26%;
+  }
+}
+
+.profile {
+  img {
+    box-shadow: none !important;
+    border-radius: 14px !important;
+  }
+}
+
+// Small social icon row under the profile photo
+.profile .profile-social {
+  text-align: center;
+  margin-top: 0.8rem;
+  font-size: 1.2rem;
+  line-height: 1;
+  a {
+    margin: 0 0.4rem;
+    i::before {
+      color: var(--global-text-color-light);
+      transition: color 0.15s ease;
+    }
+    &:hover i::before {
+      color: var(--global-theme-color);
+    }
+  }
+}
+
+// Icons already shown under the photo; keep only the contact note at the bottom
+.post .social .contact-icons {
+  display: none;
+}
+
+p, li, td, th, .author, .periodical {
+  font-weight: 400;
+}
+
+strong, b {
+  font-weight: 700;
+}
+
+// Section headings (News, Selected publications, ...) with a thin divider
+article h2, .post h2 {
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--global-divider-color);
+  margin-bottom: 1rem;
+}
+
+// News: compact [MM/YYYY] lines
+.news {
+  table {
+    margin-bottom: 0;
+  }
+  table td, table th {
+    border-top: none;
+    padding: 0.2rem 0.3rem;
+    font-weight: 400;
+  }
+  table th {
+    width: 6.5rem;
+    white-space: nowrap;
+    color: var(--global-text-color-light);
+    font-weight: 400;
+  }
+}
+
+// Publications
+.publications {
+  h1 {
+    color: var(--global-text-color);
+  }
+  h2.year {
+    color: var(--global-text-color-light);
+    font-size: 1.25rem;
+    border-top: none;
+    padding-top: 0;
+  }
+  ol.bibliography li {
+    margin-bottom: 2rem;
+    img.preview {
+      border-radius: 10px !important;
+      box-shadow: none !important;
+    }
+    .abbr abbr {
+      background-color: var(--modern-soft-bg) !important;
+      color: var(--global-theme-color);
+      border: 1px solid var(--global-divider-color);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.15rem 0.6rem;
+      a {
+        color: var(--global-theme-color);
+      }
+    }
+    .title {
+      font-weight: 700;
+      color: var(--global-theme-color) !important;
+      font-size: 1.05rem;
+      line-height: 1.4;
+      margin-bottom: 0.15rem;
+      a {
+        color: var(--global-theme-color) !important;
+        &:hover {
+          color: var(--global-hover-color) !important;
+          text-decoration: none;
+        }
+      }
+    }
+    .author {
+      color: var(--global-text-color);
+      a {
+        color: var(--global-text-color);
+        border-bottom: none;
+        &:hover {
+          color: var(--global-theme-color);
+        }
+      }
+      > em {
+        font-weight: 700;
+        border-bottom: none;
+      }
+    }
+    .periodical {
+      color: var(--global-text-color);
+      .award {
+        background-color: #fff4e0;
+        color: #b26a00;
+        border: 1px solid #f5d9a8;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.78rem;
+        letter-spacing: 0;
+      }
+    }
+    // Plain text links separated by bars: website | arxiv | code
+    .links {
+      margin-top: 0.35rem;
+      a.btn {
+        border: none;
+        box-shadow: none;
+        background: none;
+        text-transform: lowercase;
+        font-size: 0.95rem;
+        font-weight: 400;
+        padding: 0;
+        margin: 0;
+        color: var(--global-theme-color);
+        &:hover {
+          color: var(--global-hover-color);
+          background: none;
+        }
+      }
+      a.btn + a.btn::before {
+        content: "|";
+        color: var(--global-text-color-light);
+        margin: 0 0.45rem;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+html[data-theme='dark'] .publications ol.bibliography li .periodical .award {
+  background-color: #3a2a10;
+  color: #f0b450;
+  border-color: #5a4220;
+}
+
+// Footer
+footer.fixed-bottom, footer.sticky-bottom {
+  background-color: var(--global-bg-color) !important;
+  border-top: 1px solid var(--global-divider-color);
+  font-size: 0.8rem;
+}
