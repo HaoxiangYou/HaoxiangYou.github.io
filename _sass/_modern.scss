@@ -255,7 +255,9 @@ article .clearfix > p {
   }
   table td, table th {
     border-top: none;
-    padding: calc(var(--space-s) / 2) 0.3rem;
+    // 6px = half of --space-s. A plain value on purpose: the production CSS
+    // minifier corrupts var() inside calc()
+    padding: 0.375rem 0.3rem;
     line-height: 1.55;
     font-weight: 400;
   }
