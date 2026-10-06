@@ -1,12 +1,12 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: 
 
 profile:
   align: right
-  image: My_photo.jpg
+  image: my_photo.jpg
   image_cicular: true # crops the image to make it circular
 
 news: true  # includes a list of news items
@@ -21,3 +21,4 @@ I'm a final-year Ph.D. candidate in Mechanical Engineering at Yale University. P
 I work on robotics, physical agents, reinforcement learning and simulation. Along the way I have worked across much of the robotics stack, including hardware design, control, data collection, simulation, model training and deployment. More recently, my interests lie in agentic robotics: using AI agents to make robots more capable and robot learning more scalable.
 
 **I am on the job market and expect to graduate in 2027.** My CV is available [here](/assets/pdf/Haoxiang_You_CV.pdf). If you think I could be a good fit for your team, please reach out at [haoxiang.you@yale.edu](mailto:haoxiang.you@yale.edu).
+{: .job-callout}

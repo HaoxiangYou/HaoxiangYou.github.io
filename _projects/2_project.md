@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Sim-to-real control of bipedal Cassie robot
+title: Sim-to-Real Control of the Cassie Bipedal Robot
 description: Developed sim-to-real control strategies for the Cassie bipedal robot, focusing on trajectory optimization, feedback control, system identification and state estimation.
 img: assets/img/cassie/cassie.gif
 importance: 1

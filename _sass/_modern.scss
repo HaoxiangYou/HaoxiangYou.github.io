@@ -18,6 +18,15 @@ $modern-text-light:   #636363;
   --global-divider-color: #e6e6e6;
   --modern-soft-bg: #f6f8fb;
   --global-footer-bg-color: #ffffff;
+
+  // Vertical rhythm: one 8px-based scale used everywhere
+  --space-2xs: 0.25rem;  // 4px  inside a group (title -> authors)
+  --space-xs:  0.5rem;   // 8px
+  --space-s:   0.75rem;  // 12px between groups inside a card / news items
+  --space-m:   1rem;     // 16px paragraphs
+  --space-l:   1.5rem;   // 24px divider -> section heading
+  --space-xl:  2.5rem;   // 40px between cards
+  --space-2xl: 3.5rem;   // 56px between sections
   --global-footer-text-color: #{$modern-text-light};
   --global-footer-link-color: #{$modern-text-light};
 }
@@ -34,6 +43,11 @@ html[data-theme='dark'] {
   --global-footer-bg-color: #16181c;
   --global-footer-text-color: #9aa0a6;
   --global-footer-link-color: #9aa0a6;
+}
+
+// Less top whitespace under the fixed navbar
+.post-header {
+  margin-top: -0.75rem;
 }
 
 // Typography
@@ -65,20 +79,49 @@ a {
   }
 }
 
-// Navbar
-.navbar {
+// Navbar (same .navbar.navbar-light selector as al-folio's base styles, so these win)
+.navbar.navbar-light {
   box-shadow: none;
   border-bottom: 1px solid var(--global-divider-color);
+  // Menu: About · Research · Projects · CV
   .navbar-nav .nav-item .nav-link {
+    position: relative;
+    font-size: 0.97rem;
     font-weight: 400;
-    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    color: var(--global-text-color-light);
+    padding: 0.5rem 0.85rem;
+    transition: color 0.15s ease;
+    &:hover {
+      color: var(--global-text-color);
+    }
   }
+  // Current page: dark text + thin blue underline (no bold, so items never shift)
   .navbar-nav .nav-item.active > .nav-link {
-    font-weight: 700;
+    font-weight: 400;
     color: var(--global-text-color);
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0.85rem;
+      right: 0.85rem;
+      bottom: 0.15rem;
+      height: 2px;
+      border-radius: 1px;
+      background: var(--global-theme-color);
+    }
   }
+  // Collapsed (phone) menu: no underline, just the darker text
+  @media (max-width: 575px) {
+    .navbar-nav .nav-item.active > .nav-link::after {
+      display: none;
+    }
+  }
+  // Name at top-left on inner pages: one regular weight, like the home page title
+  .navbar-brand,
   .navbar-brand .font-weight-bold {
     font-weight: 400 !important;
+    color: var(--global-text-color);
   }
 }
 
@@ -103,6 +146,7 @@ a {
   font-size: 1em;
   color: var(--global-text-color);
   letter-spacing: 0.02em;
+  white-space: nowrap;   // keep 尤皓翔 together when the title wraps on phones
   &::before {
     content: "|";
     font-family: "Lato", sans-serif;
@@ -115,7 +159,8 @@ a {
 // Profile photo (larger than the al-folio default of 25%)
 @media (min-width: 576px) {
   .profile {
-    width: 26%;
+    width: 24%;
+    max-width: 280px;
   }
 }
 
@@ -126,14 +171,28 @@ a {
   }
 }
 
-// Small social icon row under the profile photo
-.profile .profile-social {
-  text-align: center;
-  margin-top: 0.8rem;
-  font-size: 1.2rem;
+// "On the job market" callout in the bio: soft tint + thin accent bar.
+// overflow: hidden keeps the box beside the floated photo instead of under it.
+.job-callout {
+  overflow: hidden;
+  padding: var(--space-s) var(--space-m);
+  background: var(--modern-soft-bg);
+  border-left: 3px solid var(--global-theme-color);
+  border-radius: 0 8px 8px 0;
+  strong {
+    color: var(--global-text-color);
+  }
+}
+
+// Social icon row between the bio and News, aligned with the text
+.profile-social {
+  clear: both;
+  margin-top: var(--space-l);
+  font-size: 1.4rem;   // ~22px: clear, but quieter than the headings
   line-height: 1;
   a {
-    margin: 0 0.4rem;
+    display: inline-block;
+    margin-right: 1.15rem;
     i::before {
       color: var(--global-text-color-light);
       transition: color 0.15s ease;
@@ -144,7 +203,7 @@ a {
   }
 }
 
-// Icons already shown under the photo; keep only the contact note at the bottom
+// Icons already shown above News; keep only the contact note at the bottom
 .post .social .contact-icons {
   display: none;
 }
@@ -161,10 +220,32 @@ strong, b {
 article h2, .post h2 {
   font-size: 1.6rem;
   font-weight: 400;
-  margin-top: 2.5rem;
-  padding-top: 1.75rem;
+  line-height: 1.2;
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-l);
   border-top: 1px solid var(--global-divider-color);
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-l);
+}
+
+// Sections own no outer margins of their own, so every section gap is exactly
+// --space-2xl regardless of what the previous section ended with
+article .news,
+article .publications {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+article .clearfix > :last-child,
+.publications ol.bibliography,
+.publications ol.bibliography > li:last-child {
+  margin-bottom: 0;
+}
+
+// Intro paragraphs
+article .clearfix > p {
+  margin-bottom: var(--space-m);
+}
+.post-header {
+  margin-bottom: var(--space-xs);
 }
 
 // News: compact [MM/YYYY] lines
@@ -174,8 +255,12 @@ article h2, .post h2 {
   }
   table td, table th {
     border-top: none;
-    padding: 0.2rem 0.3rem;
+    padding: calc(var(--space-s) / 2) 0.3rem;
+    line-height: 1.55;
     font-weight: 400;
+  }
+  table tr:first-child td, table tr:first-child th {
+    padding-top: 0;
   }
   table th {
     width: 6.5rem;
@@ -185,7 +270,7 @@ article h2, .post h2 {
   }
 }
 
-// Publications
+// Publications: fixed-size preview | title / authors / summary / venue + links
 .publications {
   h1 {
     color: var(--global-text-color);
@@ -197,11 +282,58 @@ article h2, .post h2 {
     padding-top: 0;
   }
   ol.bibliography li {
-    margin-bottom: 2rem;
-    img.preview {
-      border-radius: 10px !important;
-      box-shadow: none !important;
+    margin-bottom: var(--space-xl);
+
+    // Preview column: every preview sits in the same 16:10 rounded frame
+    .preview {
+      max-width: none;
+      min-width: 0;
     }
+    .col-sm-5.preview {
+      padding-right: 1.25rem;
+    }
+    .preview-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--modern-soft-bg);
+      img.preview {
+        display: block;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        margin: 0;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+      &.fit-cover img.preview {
+        object-fit: cover;
+      }
+      // Linked previews (projects) wrap the image in <a>
+      a {
+        display: block;
+        height: 100%;
+      }
+      &.fit-contain {
+        background: #ffffff;
+        border: 1px solid var(--global-divider-color);
+        img.preview {
+          object-fit: contain;
+          padding: 6px;
+        }
+      }
+    }
+    @media (max-width: 575px) {
+      .preview-frame {
+        margin-bottom: var(--space-s);
+      }
+      .row .title {
+        margin-top: 0;
+      }
+    }
+
     .abbr abbr {
       background-color: var(--modern-soft-bg) !important;
       color: var(--global-theme-color);
@@ -214,55 +346,91 @@ article h2, .post h2 {
         color: var(--global-theme-color);
       }
     }
+
+    // Text column
     .title {
       font-weight: 700;
-      color: var(--global-theme-color) !important;
-      font-size: 1.05rem;
-      line-height: 1.4;
-      margin-bottom: 0.15rem;
+      font-size: 1.08rem;
+      line-height: 1.35;
+      // pull the first line up so the cap height lines up with the preview's top edge
+      margin-top: -0.2rem;
+      margin-bottom: var(--space-2xs);
+      color: var(--global-text-color) !important;
       a {
-        color: var(--global-theme-color) !important;
+        color: var(--global-text-color) !important;
         &:hover {
-          color: var(--global-hover-color) !important;
+          color: var(--global-theme-color) !important;
           text-decoration: none;
         }
       }
     }
     .author {
-      color: var(--global-text-color);
+      font-size: 0.9375rem;   // 15px
+      line-height: 1.45;
+      color: var(--global-text-color-light);
       a {
-        color: var(--global-text-color);
+        color: var(--global-text-color-light);
         border-bottom: none;
         &:hover {
           color: var(--global-theme-color);
         }
       }
       > em {
+        font-style: normal;
         font-weight: 700;
+        color: var(--global-text-color);
         border-bottom: none;
+        white-space: nowrap;
       }
     }
-    .periodical {
+    .tldr {
+      margin-top: var(--space-s);
+      font-size: 0.96875rem;  // 15.5px
+      line-height: 1.5;
       color: var(--global-text-color);
+    }
+
+    // Venue line under the authors: [CoRL 2026] [Spotlight]
+    .venue-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2xs) 0.45rem;
+      margin-top: var(--space-xs);
+      .venue,
       .award {
-        background-color: #fff4e0;
-        color: #b26a00;
-        border: 1px solid #f5d9a8;
-        border-radius: 999px;
+        display: inline-block;
+        font-size: 0.8125rem; // 13px
         font-weight: 700;
-        font-size: 0.78rem;
-        letter-spacing: 0;
+        line-height: 1;
+        padding: 0.3rem 0.55rem;
+        border-radius: 6px;
+      }
+      .venue {
+        color: var(--global-theme-color);
+        background-color: var(--modern-soft-bg);
+        border: 1px solid #d6e3f5;
+      }
+      .award {
+        color: #b26a00;
+        background-color: #fff4e0;
+        border: 1px solid #f5d9a8;
       }
     }
-    // Plain text links separated by bars: website | arxiv | code
+
+    // Bottom line: website | arxiv | code
     .links {
-      margin-top: 0.35rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      row-gap: var(--space-2xs);
+      margin-top: var(--space-s);
+      font-size: 0.9375rem;   // 15px
       a.btn {
         border: none;
         box-shadow: none;
         background: none;
         text-transform: lowercase;
-        font-size: 0.95rem;
+        font-size: 0.9375rem;   // 15px
         font-weight: 400;
         padding: 0;
         margin: 0;
@@ -274,18 +442,26 @@ article h2, .post h2 {
       }
       a.btn + a.btn::before {
         content: "|";
-        color: var(--global-text-color-light);
-        margin: 0 0.45rem;
+        color: var(--global-divider-color);
+        margin: 0 0.5rem;
         display: inline-block;
       }
     }
   }
 }
 
-html[data-theme='dark'] .publications ol.bibliography li .periodical .award {
-  background-color: #3a2a10;
-  color: #f0b450;
-  border-color: #5a4220;
+html[data-theme='dark'] .publications ol.bibliography li {
+  .venue-line .venue {
+    border-color: #2c3d57;
+  }
+  .venue-line .award {
+    background-color: #3a2a10;
+    color: #f0b450;
+    border-color: #5a4220;
+  }
+  .preview-frame.fit-contain {
+    border-color: #2c2f35;
+  }
 }
 
 // Footer

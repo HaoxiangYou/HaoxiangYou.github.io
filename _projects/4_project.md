@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Design and Manufacturing of Electric Car with Remote Control
-description: Complete design and manufacturing of an electric car including mechanical design, circuit design, electrical systems, and remote control implementation
+title: Remote-Controlled Electric Car
+description: Designed and built a remote-controlled electric car from scratch, covering CAD and mechanical design, custom circuits, and the remote-control system.
 img: assets/img/master_yiyi/hardware.JPG
 importance: 3
 selected: true

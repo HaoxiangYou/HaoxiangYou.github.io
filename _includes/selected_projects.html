@@ -1,4 +1,3 @@
-
           <div class="publications">
             <h2>Selected Projects</h2>
             {%- assign selected_projects = site.projects | where: "selected", true | sort: "importance" %}
@@ -7,35 +6,40 @@
             {%- endif %}
             <ol class="bibliography">
             {%- for project in selected_projects limit: page.projects_limit %}
+              {%- if project.redirect -%}
+                {%- assign project_link = project.redirect -%}
+              {%- else -%}
+                {%- assign project_link = project.url | relative_url -%}
+              {%- endif -%}
               <li>
                 <div class="row">
-                  <div class="col-sm-4 preview">
-                    {% if project.redirect -%}
-                      <a href="{{ project.redirect }}">
-                    {%- else -%}
-                      <a href="{{ project.url | relative_url }}">
-                    {%- endif %}
-                      {% if project.img -%}
-                        {% include figure.html
-                          path=project.img
-                          class="preview z-depth-1 rounded"
-                          alt="project thumbnail" %}
-                      {%- endif %}
+                  <div class="col-sm-5 preview">
+                    {%- if project.img %}
+                    <div class="preview-frame fit-cover">
+                      <a href="{{ project_link }}">
+                        <img class="preview" src="{{ project.img | relative_url }}" alt="{{ project.title }}">
                       </a>
-                  </div>
-                  <div class="col-sm-8">
-                    <div class="title">
-                      {% if project.redirect -%}
-                        <a href="{{ project.redirect }}">{{ project.title }}</a>
-                      {%- else -%}
-                        <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
-                      {%- endif %}
                     </div>
-                    <div class="author">{{ project.description }}</div>
+                    {%- endif %}
+                  </div>
+                  <div class="col-sm-7">
+                    <!-- Title -->
+                    <div class="title">
+                      <a href="{{ project_link }}">{{ project.title }}</a>
+                    </div>
+
+                    <!-- Summary -->
+                    {%- if project.description %}
+                    <div class="tldr">{{ project.description }}</div>
+                    {%- endif %}
+
+                    <!-- Links -->
+                    <div class="links">
+                      <a href="{{ project_link }}" class="btn btn-sm z-depth-0" role="button">Details</a>
+                    </div>
                   </div>
                 </div>
               </li>
             {%- endfor %}
             </ol>
           </div>
-
