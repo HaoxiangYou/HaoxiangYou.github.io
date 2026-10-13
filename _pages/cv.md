@@ -2,7 +2,7 @@
 layout: page
 title: CV
 permalink: /cv/
-description: My curriculum vitae. Last updated September 2026.
+description: My curriculum vitae. Last updated October 2026.
 nav: true
 nav_order: 3
 ---
